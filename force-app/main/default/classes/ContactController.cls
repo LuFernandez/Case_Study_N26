@@ -19,8 +19,8 @@ public with sharing class ContactController{
                 contactMap.put('country', c.Home_Country__c);
                 contactMap.put('productId', c.Product__c);
                 response.put('contactInfo', contactMap);
-                if(c.Product__c != null){       //get product information
-                    Map<String, Object> prodMap = ProductController.getProductInfo(c.Product__c, c.Home_Country__c);
+                if(c.Product__c != null){      //if product available 
+                    Map<String, Object> prodMap = ProductController.getProductInfo(c.Product__c, c.Home_Country__c);//get product information
                     response.put('productInfo', prodMap);    //add product information
                 }
             }else{

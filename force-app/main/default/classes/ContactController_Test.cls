@@ -37,6 +37,6 @@ private class ContactController_Test {
         Map<String, Object> prodMap = (Map<String, Object>) output.get('productInfo');
             
         Costs_Per_Product__c cost = [SELECT Cost_per_Calendar_Month__c FROM Costs_Per_Product__c LIMIT 1];
-        Assert.areEqual(String.valueOf(cost.Cost_per_Calendar_Month__c), prodMap.get('costPerCalendarMonth'), 'cost per calendar month do not match');
+        Assert.areEqual(String.valueOf(cost.Cost_per_Calendar_Month__c), prodMap.get('costPerCalendarMonth'), 'cost per calendar month doesnt match');
     }
 }
