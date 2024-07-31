@@ -4,7 +4,7 @@
         <div class="slds-p-horizontal_small">
             <template lwc:if={caseInfo}>
                 <p><strong>Name: {caseInfo.Contact.Name}</strong></p>
-                <p><strong>Country: {caseInfo.Contact.Home_Country__c}</strong></p>
+                <p>Country: {caseInfo.Contact.Home_Country__c}</p>
             </template>
             <template lwc:elseif={error}>
                 <!-- <p><strong>This case has no related contact</strong></p> -->
