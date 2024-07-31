@@ -31,7 +31,6 @@ export default class ContactProducts extends LightningElement {
             console.log(data);
             console.log(data.prodName);
             this.productData = data;
-            // this.productData.atmFee = data.atmFee/100;
             if (error){
                 console.log(error);
             }

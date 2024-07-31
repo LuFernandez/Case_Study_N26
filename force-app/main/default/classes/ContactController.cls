@@ -5,11 +5,6 @@ public with sharing class ContactController{
         Map<String, Object> contactInfo = new Map<String, Object>();
         
         return [SELECT Id, ContactId, Contact.Name, Contact.Home_Country__c, Contact.Product__c FROM Case where Id=:caseId LIMIT 1];
-
-        // contactInfo.put('name', caseRec.Contact.Name);
-        // contactInfo.put('productId', caseRec.Contact.Product__c);
-        // contactInfo.put('country', caseRec.Contact.Home_Country__c);
-        // return caseRec;
     }
 
     public static Map<String, Object> getProductbyContactUUID(String uuid){  
