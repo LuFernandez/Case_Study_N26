@@ -8,7 +8,7 @@ global with sharing class ContactAPI{
         
         try{
             Map<String, Object> ret = ContactController.getProductbyContactUUID(contactUUID);
-            if(ret != null){  //si tengo info de contacto, info de producto etc
+            if(ret != null){  //if we have contact info, product info etc
                 //return message
                 Map<String, Object> response = new Map<String, Object>();
                 response.put('contactInfo', ret.get('contactInfo'));
@@ -22,10 +22,5 @@ global with sharing class ContactAPI{
         }catch(Exception e){
             res.statusCode = 400;
         }
-        
-
-        
-        // return res;
    }
 }
-
