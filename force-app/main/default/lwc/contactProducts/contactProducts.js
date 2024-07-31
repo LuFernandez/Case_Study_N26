@@ -9,12 +9,12 @@ export default class ContactProducts extends LightningElement {
     prodMap;
     error;
 
-    @wire(getContactInfo, { caseId: '$recordId' })
+    @wire(getContactInfo, { caseId: '$recordId' })      //apex method to obtain contactid, contact.name, contact.product__c and contact.home_country__c from case recordid
     wiredCase({ error, data }) {
         if (data) {
-            if(!data.hasOwnProperty('ContactId')){
+            if(!data.hasOwnProperty('ContactId')){      //to show message if there is no contact associated with case
                 this.caseInfo = false;
-                this.error = true;
+                this.error = true;  //to show message in html
             }else{
                 this.caseInfo = data;
             }
@@ -25,8 +25,8 @@ export default class ContactProducts extends LightningElement {
         console.log(this.caseInfo);
     }
 
-    @wire(getProductInfo, {productId: '$caseInfo.Contact.Product__c', country: '$caseInfo.Contact.Home_Country__c'})
-    wiredProductData({ error, data }) {
+    @wire(getProductInfo, {productId: '$caseInfo.Contact.Product__c', country: '$caseInfo.Contact.Home_Country__c'}) //apex method to obtain the costs associated to the productId
+    wiredProductData({ error, data }) {         
         if(data){
             console.log(data);
             this.productData = data;
@@ -36,7 +36,7 @@ export default class ContactProducts extends LightningElement {
         }
     }
 
-    get isCostPerMonthFree(){
+    get isCostPerMonthFree(){       //variable to show a 'Free' text if the cost per month = 0
         let isFree = false;
         if(this.productData){
             if(this.productData.hasOwnProperty('costPerCalendarMonth')){
@@ -50,7 +50,7 @@ export default class ContactProducts extends LightningElement {
         return isFree;
     }
 
-    get isCostPerMonthNA(){
+    get isCostPerMonthNA(){     //variable to show a 'N/a' if the cost per month is not defined (for example: UK scenario)
         let na = false;
         if(this.productData){
             if(!this.productData.hasOwnProperty('costPerCalendarMonth')){
@@ -60,7 +60,7 @@ export default class ContactProducts extends LightningElement {
         return na;
     }
 
-    get noAtmFee(){
+    get noAtmFee(){         //variable to show a 'Free' text if the atm fee = 0
         let isFree = false;
         if(this.productData){
             console.log('this.productData.atmFee = ' + this.productData.atmFee);
