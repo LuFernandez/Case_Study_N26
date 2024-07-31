@@ -1,16 +1,24 @@
 @RestResource(urlMapping='/contactproduct/*')
-global with sharing class ContactAPI
-{
+global with sharing class ContactAPI{
     @HttpGet
     global static void getContactProduct(){
         RestRequest req = RestContext.request;
         RestResponse res = Restcontext.response;
         String contactUUID = req.requestURI.substring(req.requestURI.lastIndexOf('/')+1);
         
-        Map<String, Object> resp = ContactController.getContactProductInfo(contactUUID);
+        try{
+            Map<String, Object> resp = ContactController.getProductbyContactUUID(contactUUID);
+            if(resp.get('result') != 'error'){  //si tengo info de contacto, info de producto etc
+                //return message
+            }else{
+                
+            }
+        }catch(Exception e){
+            res.statusCode = 400;
+        }
+        
 
-        res.responseBody = Blob.valueOf(JSON.serialize(resp));
-        res.statusCode = 200;
+        
         // return res;
    }
 }
