@@ -1,22 +1,38 @@
 <template>
     <lightning-card title="Related Contact Product"> 
-    <!-- //add border -->
-        <div class="slds-p-horizontal_small">
+        <div class="slds-p-horizontal_small border-class">
             <template lwc:if={caseInfo}>
                 <p><strong>Name: {caseInfo.Contact.Name}</strong></p>
                 <p>Country: {caseInfo.Contact.Home_Country__c}</p>
             </template>
             <template lwc:elseif={error}>
-                <!-- <p><strong>This case has no related contact</strong></p> -->
+                <p>This case has no related contact.</p>
             </template>
             <template lwc:if={productData}>
+            <hr class="margin-class">
                 <!-- //no mostrar si no hay producto -->
                 <p>Product: {productData.prodName}</p>
-                <p>Cost per Calendar Month: <lightning-formatted-number value={productData.costPerCalendarMonth} currency-code={productData.currencyIsoCode} currency-display-as="symbol"></lightning-formatted-number></p>
-                <p>ATM Fee: <lightning-formatted-number value={productData.atmFee} format-style="percent" maximum-fraction-digits="1"></lightning-formatted-number></p>
-                <p>Card Replacement Cost: <lightning-formatted-number value={productData.cardReplacementCost} format-style="currency" currency-code={productData.currencyIsoCode} currency-display-as="symbol"></lightning-formatted-number></p>
+                <template lwc:if={isCostPerMonthFree}>
+                    <p>Cost per Calendar Month: Free</p>
+                </template>
+                <template lwc:elseif={isCostPerMonthNA}>
+                    <p>Cost per Calendar Month: N/a</p>
+                </template>
+                <template lwc:else>
+                    <p>Cost per Calendar Month: <lightning-formatted-number value={productData.costPerCalendarMonth} format-style="currency" currency-code={productData.currencyIsoCode} currency-display-as="symbol"></lightning-formatted-number></p>
+                </template>
+                <template lwc:if={noAtmFee}>
+                    <p>ATM Fee: Free</p>
+                </template>
+                <template lwc:else>
+                    <p>ATM Fee: <lightning-formatted-number value={productData.atmFee} format-style="percent" maximum-fraction-digits="1"></lightning-formatted-number></p>
+                </template>
+                <p>Card Replacement Cost: <lightning-formatted-number value={productData.cardReplacementCost} format-style="currency" currency-display-as="symbol" currency-code={productData.currencyIsoCode}></lightning-formatted-number></p>
                 
             </template>
+            <!-- <template lwc:else>
+                <p>no product data available</p>
+            </template> -->
             
         </div>
       </lightning-card>

@@ -13,7 +13,7 @@ export default class ContactProducts extends LightningElement {
     wiredCase({ error, data }) {
         if (data) {
             if(!data.hasOwnProperty('ContactId')){
-                this.caseInfo = undefined;
+                this.caseInfo = false;
                 this.error = true;
             }else{
                 this.caseInfo = data;
@@ -29,11 +29,49 @@ export default class ContactProducts extends LightningElement {
     wiredProductData({ error, data }) {
         if(data){
             console.log(data);
-            console.log(data.prodName);
             this.productData = data;
             if (error){
                 console.log(error);
             }
         }
+    }
+
+    get isCostPerMonthFree(){
+        let isFree = false;
+        if(this.productData){
+            if(this.productData.hasOwnProperty('costPerCalendarMonth')){
+                if(this.productData.costPerCalendarMonth == '0.00'){
+                    isFree = true;
+                }else{
+                    isFree = false;
+                }
+            }
+        }
+        return isFree;
+    }
+
+    get isCostPerMonthNA(){
+        let na = false;
+        if(this.productData){
+            if(!this.productData.hasOwnProperty('costPerCalendarMonth')){
+                na = true;
+            }
+        }
+        return na;
+    }
+
+    get noAtmFee(){
+        let isFree = false;
+        if(this.productData){
+            console.log('this.productData.atmFee = ' + this.productData.atmFee);
+            if(this.productData.hasOwnProperty('atmFee')){
+                if(this.productData.atmFee == '0.00'){
+                    isFree = true;
+                }else{
+                    isFree = false;
+                }
+            }
+        }
+        return isFree;
     }
 }

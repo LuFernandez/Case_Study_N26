@@ -1,0 +1,10 @@
+.border-class{
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.margin-class{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
