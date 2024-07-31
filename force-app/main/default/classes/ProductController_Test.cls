@@ -5,7 +5,7 @@ private class ProductController_Test {
     static void setup(){
         Product__c prod = new Product__c(Name = 'Standard');
         insert prod;
-        Costs_Per_Product__c cost = new Costs_Per_Product__c(Country__c = 'DE', Cost_per_Calendar_Month__c = 5.0, ATM_Fee__c = 1, Card_Replacement_Cost__c = 10.0);
+        Costs_Per_Product__c cost = new Costs_Per_Product__c(Custom_Product__c=prod.Id, Country__c = 'DE', Cost_per_Calendar_Month__c = 5.0, ATM_Fee__c = 1, Card_Replacement_Cost__c = 10.0);
         insert cost;
     }
 
@@ -19,4 +19,17 @@ private class ProductController_Test {
         Test.stopTest();
         Assert.areEqual('Standard', output.get('prodName'), 'Product names dont match');
     }
+
+    @isTest
+    static void getProductInfoFailTest() {
+        Product__c prod = [SELECT Id FROM Product__c LIMIT 1];
+        Test.startTest();
+            try {
+                ProductController.getProductInfo(prod.Id, 'AR');
+            } catch (QueryException e) {
+                Assert.areEqual('List has no rows for assignment to SObject' , e.getMessage());
+            }
+        Test.stopTest();
+    }
+
 }
