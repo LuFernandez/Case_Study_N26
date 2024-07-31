@@ -2,7 +2,7 @@ public with sharing class ContactController{
 
     @AuraEnabled(cacheable=true)
     public static Case getCaseRelatedContact(Id caseId){
-        Map<String, Object> contactInfo = new Map<String, Object>();
+        // Map<String, Object> contactInfo = new Map<String, Object>();
         
         return [SELECT Id, ContactId, Contact.Name, Contact.Home_Country__c, Contact.Product__c FROM Case where Id=:caseId LIMIT 1];
     }
